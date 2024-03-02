@@ -1,24 +1,42 @@
-const wrapper = document.querySelector(".wrapper"),
-      qrInput = wrapper.querySelector(".form input"),
-      generateBtn = wrapper.querySelector(".form button"),
-      qrImg = wrapper.querySelector(".qr-code img");
-    let preValue;
+const generateQRCode = () => {
+  const inputText = document.getElementById("qr-code-text").value;
+  const img = document.getElementById("qr-code-img");
+  const generatingText = document.getElementById("generating-text");
+  const downloadIcon = document.querySelector(".download-icon");
 
-    generateBtn.addEventListener("click", () => {
-      let qrValue = qrInput.value.trim();
-      if (!qrValue || preValue === qrValue) return;
-      preValue = qrValue;
-      generateBtn.innerText = "Generating QR Code...";
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrValue}`;
-      qrImg.addEventListener("load", () => {
-        wrapper.classList.add("active");
-        generateBtn.innerText = "Generate QR Code";
+  if (!inputText) {
+    alert("Please enter text to generate the QR Code.");
+    return;
+  }
+
+  generatingText.textContent = " Generating QR Code."; // Initial text
+
+  let dots = "";
+  let dotsCount = 0;
+  const dotsInterval = setInterval(() => {
+    dotsCount = (dotsCount + 1) % 7; // Cycle through 6 dots
+    dots = ".".repeat(dotsCount);
+    generatingText.textContent = ` Generating QR Code${dots}`;
+  }, 100); // Update dots every 100 milliseconds (adjust as needed)
+
+  const apiURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${inputText}`;
+
+  fetch(apiURL)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      img.src = url;
+      generatingText.textContent = "Generator v2.0"; // Reset text after generation
+      clearInterval(dotsInterval); // Stop the dots animation
+
+      downloadIcon.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "qr-code.png"; // Adjust filename as needed
+        link.click();
       });
-    });
+    })
+    .catch(error => console.error("Error:", error));
+};
 
-    qrInput.addEventListener("keyup", () => {
-      if (!qrInput.value.trim()) {
-        wrapper.classList.remove("active");
-        preValue = "";
-      }
-    });
+document.getElementById("qrg").addEventListener("click", generateQRCode);
