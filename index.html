@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <!-- Jesse Srek Dev-->
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
   <title>QR Code Generator | Jesse Network</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="styles.css">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-  <div class="wrapper">
-    <header>
-      <h1>QR Code Generator</h1>
-      <p>Paste a URL or enter text to create QR code</p>
-    </header>
-    <div class="form">
-      <input type="text" spellcheck="false" placeholder="Enter text or URL">
-      <button>Generate QR Code</button>
+  <main>
+    <div class="container">
+      <div class="image">
+        <img src="" id="qr-code-img">
+      </div>
+      <div class="download-container">
+        <span id="generating-text">Welcome !</span>
+			  </div>
+			  <br>
+			  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMpqiYtg68peTUWYIbW6Y-Q-bip_Ageuh0-RF5BJd_5_PovZrtOw5H3O0RMACiVYUFBAAea5f2iu_MHmKw7N9Eljot9wPBHywm8N95w-W6JyAO9elDfaT0eBX1aDFRUPm2EdifDbNG9xwsIge7m4qcDj5NeGLLsXIUhJl-Fzd4kc7g4C6GAD7P1or7fjU/s512/downloads.png" alt="Download" class="download-icon">
+    <br>
+	  <div class="input-container">
+        <input type="text" id="qr-code-text" placeholder="Enter text to generate QR Code">
+      </div>
+      <div class="button-container">
+        <button id="qrg" class="button animate">Generate QR Code</button>
+      </div>
     </div>
-    <div class="qr-code">
-      <img src="" alt="qr-code">
-    </div>
-  </div>
-
+  </main>
   <script src="script.js"></script>
- 
-</body>
-
+  </body>
 </html>
