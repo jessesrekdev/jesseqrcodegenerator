@@ -1,128 +1,157 @@
-/* Import Google Font - Poppins */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+main {
+  display: flex;
+  justify-content: center; /* For horizontal centering */
+  align-items: center;   /* For vertical centering */
+  height: 100vh; /* Fill entire viewport height */
+  margin: 0; /* Remove default margin */
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Add padding */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
 
-    body {
-      display: flex;
-      padding: 0 10px;
-      min-height: 100vh;
-      align-items: center;
-      background: #3498DB;
-      justify-content: center;
-    }
+.image {
+  display: flex; /* Add this line */
+  width: 250px; /* Adjust width as needed */
+  margin-bottom: 20px; /* Add space below image */
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content (optional) */
+}
 
-    ::selection {
-      color: #fff;
-      background: #3498DB;
-    }
 
-    .wrapper {
-      height: 265px;
-      max-width: 410px;
-      background: #fff;
-      border-radius: 7px;
-      padding: 20px 25px 0;
-      transition: height 0.2s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
+.input-container,
+.button-container {
+  margin-bottom: 10px; /* Add space between elements */
+}
 
-    .wrapper.active {
-      height: 530px;
-    }
+.input-container input {
+  width: 100%; /* Match container width */
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Adjust font size */
+}
 
-    header h1 {
-      font-size: 21px;
-      font-weight: 500;
-    }
+.button-container button {
+  padding: 10px 20px;
+  border: none; /* Remove default border */
+  border-radius: 5px;
+  background-color: #A020F0; /* Light purple */
+  color: #fff; /* White text */
+  font-size: 16px; /* Adjust font size */
+  cursor: pointer; /* Make it look clickable */
+}
 
-    header p {
-      margin-top: 5px;
-      color: #575757;
-      font-size: 16px;
-    }
+.button-container button:hover {
+  background-color: #8C17E0; /* Darker purple on hover */
+}
 
-    .wrapper .form {
-      margin: 20px 0 25px;
-    }
-
-    .form :where(input, button) {
-      width: 100%;
-      height: 55px;
+button {
+      position: relative;
+      padding: 10px 22px;
+      border-radius: 6px;
       border: none;
-      outline: none;
-      border-radius: 5px;
-      transition: 0.1s ease;
-    }
-
-    .form input {
-      font-size: 18px;
-      padding: 0 17px;
-      border: 1px solid #999;
-    }
-
-    .form input:focus {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
-    }
-
-    .form input::placeholder {
-      color: #999;
-    }
-
-    .form button {
       color: #fff;
       cursor: pointer;
-      margin-top: 20px;
-      font-size: 17px;
-      background: #3498DB;
+      background-color: #7d2ae8;
+      transition: all 0.2s ease;
     }
-
-    .qr-code {
-      opacity: 0;
-      display: flex;
-      padding: 33px 0;
-      border-radius: 5px;
-      align-items: center;
-      pointer-events: none;
-      justify-content: center;
-      border: 1px solid #ccc;
+   button:active {
+      transform: scale(0.96);
     }
-
-    .wrapper.active .qr-code {
-      opacity: 1;
-      pointer-events: auto;
-      transition: opacity 0.5s 0.05s ease;
+    button:before,
+    button:after {
+      position: absolute;
+      content: "";
+      width: 150%;
+      left: 50%;
+      height: 100%;
+      transform: translateX(-50%);
+      z-index: -1000;
+      background-repeat: no-repeat;
     }
-
-    .qr-code img {
-      width: 170px;
+    button.animate::before {
+      top: -70%;
+      background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+      background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+      animation: greentopBubbles ease-in-out 0.6s forwards infinite;
     }
-
-    @media (max-width: 430px) {
-      .wrapper {
-        height: 255px;
-        padding: 16px 20px;
+    @keyframes greentopBubbles {
+      0% {
+        background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+          40% 90%, 55% 90%, 70% 90%;
       }
-
-      .wrapper.active {
-        height: 510px;
+      50% {
+        background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+          50% 50%, 65% 20%, 90% 30%;
       }
-
-      header p {
-        color: #696969;
-      }
-
-      .form :where(input, button) {
-        height: 52px;
-      }
-
-      .qr-code img {
-        width: 160px;
+      100% {
+        background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+          50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
       }
     }
-  
+    button.animate::after {
+      bottom: -70%;
+      background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+        radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+      background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+      animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
+    }
+    @keyframes greenbottomBubbles {
+      0% {
+        background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+          70% -10%, 70% 0%;
+      }
+      50% {
+        background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+          105% 0%;
+      }
+      100% {
+        background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+          110% 10%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+      }
+    }
+	/* Existing styles... */
+
+#generating-text {
+  color: #7d2ae8; /* Set text color to purple */
+  font-size: 16px;
+  text-align: center; /* Center the text */
+}
+.download-container {
+  display: flex; /* Arrange download icon and text horizontally */
+  align-items: center; /* Vertically align content */
+}
+
+.download-icon {
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  cursor: pointer; /* Indicate clickable element */
+}
+
+#generating-text {
+  color: purple; /* Set text color to purple */
+  font-size: 16px;
+  margin-left: 5px; /* Add spacing between icon and text */
+}
