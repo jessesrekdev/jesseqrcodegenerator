@@ -40,3 +40,39 @@ const generateQRCode = () => {
 };
 
 document.getElementById("qrg").addEventListener("click", generateQRCode);
+
+
+// box
+let navigation = document.querySelector('.navigation');
+navigation.onclick = function(){
+    navigation.classList.toggle('active')
+}
+
+
+// 9 dots menu content
+
+// reference to the image element
+var image = document.getElementById("jesse-network.com");
+
+// onclick listener
+image.addEventListener("click", function() {
+  // after click what happens
+  window.open("https://jesse-network.com", "_blank");
+});
+
+var image = document.getElementById("telegram.channel");
+image.addEventListener("click", function() {
+  window.open("https://t.me/+lc4EyWAN4-M4YTlk")
+});
+
+const inputText = document.getElementById("qr-code-text");
+
+// Add event listener for Enter key press on the input field
+inputText.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    generateQRCode();
+  }
+});
+
+// Rest of your code remains the same
+// ...
