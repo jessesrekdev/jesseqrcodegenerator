@@ -4,6 +4,11 @@ const generateQRCode = () => {
   const generatingText = document.getElementById("generating-text");
   const downloadIcon = document.querySelector(".download-icon");
 
+let navigation = document.querySelector('.navigation');
+navigation.onclick = function(){
+    navigation.classList.toggle('active')
+}
+  
   if (!inputText) {
     alert("Please enter text to generate the QR Code.");
     return;
@@ -40,14 +45,6 @@ const generateQRCode = () => {
 };
 
 document.getElementById("qrg").addEventListener("click", generateQRCode);
-
-
-// box
-let navigation = document.querySelector('.navigation');
-navigation.onclick = function(){
-    navigation.classList.toggle('active')
-}
-
 
 // 9 dots menu content
 
