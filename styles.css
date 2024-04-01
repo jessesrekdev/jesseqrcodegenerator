@@ -1,3 +1,4 @@
+
 main {
   display: flex;
   justify-content: center; /* For horizontal centering */
@@ -155,3 +156,83 @@ button {
   font-size: 16px;
   margin-left: 5px; /* Add spacing between icon and text */
 }
+
+.apps {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-align: end;
+  margin-right: 20px;
+  margin-top: 1.5em;
+}
+
+
+.navigation {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgb(224, 134, 224);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  transition-delay:0.8s ;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.navigation.active {
+  width: 200px;
+  height: 200px;
+  transition-delay:0s ;
+  z-index: 999;
+  position: absolute;
+  top: 50px;
+  right: 30px;
+}
+
+.navigation span {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: black;
+  border-radius: 50%;
+  transition: 0.5s;
+  transform: translate(calc(12px * var(--x)),calc(12px * var(--y)));
+  transition-delay: calc(0.1s);
+  transition: transform 0.5s,width 0.5s,height 0.5s,background 0.5s;
+  transition-delay: calc(0.1s * var(--i));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation.active span {
+  width: 50px;
+  height: 50px;
+  background: #b1b4c0;
+  transform: translate(calc(60px * var(--x)),calc(60px * var(--y)));
+}
+
+.navigation span .icons {
+  width: 0px;
+  height: 0px;
+  transition: 0.5s;
+  font-size: 0em;
+}
+
+.navigation.active span .icons {
+  width: 50px;
+  height: 50px;
+}
+
+.navigation.active span:hover ion-icon {
+  color: #b238d0;
+  filter: drop-shadow(0 0 2px rgb(183, 34, 252));
+}
+
+ 
