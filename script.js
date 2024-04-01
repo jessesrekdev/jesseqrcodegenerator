@@ -8,11 +8,6 @@ let navigation = document.querySelector('.navigation');
 navigation.onclick = function(){
     navigation.classList.toggle('active')
 }
-  
-  if (!inputText) {
-    alert("Please enter text to generate the QR Code.");
-    return;
-  }
 
   generatingText.textContent = " Generating QR Code."; // Initial text
 
@@ -73,3 +68,7 @@ inputText.addEventListener("keydown", (event) => {
 
 // Rest of your code remains the same
 // ...
+let navigation = document.querySelector('.navigation');
+navigation.onclick = function(){
+    navigation.classList.toggle('active')
+}
