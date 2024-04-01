@@ -1,238 +1,78 @@
+const generateQRCode = () => {
+  const inputText = document.getElementById("qr-code-text").value;
+  const img = document.getElementById("qr-code-img");
+  const generatingText = document.getElementById("generating-text");
+  const downloadIcon = document.querySelector(".download-icon");
 
-main {
-  display: flex;
-  justify-content: center; /* For horizontal centering */
-  align-items: center;   /* For vertical centering */
-  height: 100vh; /* Fill entire viewport height */
-  margin: 0; /* Remove default margin */
-}
+  if (!inputText) {
+    alert("Please enter text to generate the QR Code.");
+    return;
+  }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f5f5f5; /* Light gray background */
-  border-radius: 10px; /* Rounded corners */
-  padding: 20px; /* Add padding */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
+  generatingText.textContent = " Generating QR Code."; // Initial text
 
-.image {
-  display: flex; /* Add this line */
-  width: 250px; /* Adjust width as needed */
-  margin-bottom: 20px; /* Add space below image */
-  justify-content: center; /* Horizontally center content */
-  align-items: center; /* Vertically center content (optional) */
-}
+  let dots = "";
+  let dotsCount = 0;
+  const dotsInterval = setInterval(() => {
+    dotsCount = (dotsCount + 1) % 7; // Cycle through 6 dots
+    dots = ".".repeat(dotsCount);
+    generatingText.textContent = ` Generating QR Code${dots}`;
+  }, 100); // Update dots every 100 milliseconds (adjust as needed)
+
+  const apiURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${inputText}`;
+
+  fetch(apiURL)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+      img.src = url;
+      generatingText.textContent = "Generator v2.0"; // Reset text after generation
+      clearInterval(dotsInterval); // Stop the dots animation
+
+      downloadIcon.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "qr-code.png"; // Adjust filename as needed
+        link.click();
+      });
+    })
+    .catch(error => console.error("Error:", error));
+};
+
+document.getElementById("qrg").addEventListener("click", generateQRCode);
 
 
-.input-container,
-.button-container {
-  margin-bottom: 10px; /* Add space between elements */
-}
-
-.input-container input {
-  width: 100%; /* Match container width */
-  padding: 10px;
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 5px; /* Rounded corners */
-  font-size: 16px; /* Adjust font size */
-}
-
-.button-container button {
-  padding: 10px 20px;
-  border: none; /* Remove default border */
-  border-radius: 5px;
-  background-color: #A020F0; /* Light purple */
-  color: #fff; /* White text */
-  font-size: 16px; /* Adjust font size */
-  cursor: pointer; /* Make it look clickable */
-}
-
-.button-container button:hover {
-  background-color: #8C17E0; /* Darker purple on hover */
-}
-
-button {
-      position: relative;
-      padding: 10px 22px;
-      border-radius: 6px;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      background-color: #7d2ae8;
-      transition: all 0.2s ease;
-    }
-   button:active {
-      transform: scale(0.96);
-    }
-    button:before,
-    button:after {
-      position: absolute;
-      content: "";
-      width: 150%;
-      left: 50%;
-      height: 100%;
-      transform: translateX(-50%);
-      z-index: -1000;
-      background-repeat: no-repeat;
-    }
-    button.animate::before {
-      top: -70%;
-      background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%);
-      background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
-      animation: greentopBubbles ease-in-out 0.6s forwards infinite;
-    }
-    @keyframes greentopBubbles {
-      0% {
-        background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
-          40% 90%, 55% 90%, 70% 90%;
-      }
-      50% {
-        background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
-          50% 50%, 65% 20%, 90% 30%;
-      }
-      100% {
-        background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
-          50% 40%, 65% 10%, 90% 20%;
-        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-      }
-    }
-    button.animate::after {
-      bottom: -70%;
-      background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%),
-        radial-gradient(circle, #7d2ae8 20%, transparent 20%);
-      background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
-      animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
-    }
-    @keyframes greenbottomBubbles {
-      0% {
-        background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
-          70% -10%, 70% 0%;
-      }
-      50% {
-        background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
-          105% 0%;
-      }
-      100% {
-        background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
-          110% 10%;
-        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-      }
-    }
-	/* Existing styles... */
-
-#generating-text {
-  color: #7d2ae8; /* Set text color to purple */
-  font-size: 16px;
-  text-align: center; /* Center the text */
-}
-.download-container {
-  display: flex; /* Arrange download icon and text horizontally */
-  align-items: center; /* Vertically align content */
-}
-
-.download-icon {
-  width: 20px; /* Adjust size as needed */
-  height: 20px; /* Adjust size as needed */
-  cursor: pointer; /* Indicate clickable element */
-}
-
-#generating-text {
-  color: #7d2ae8; /* Set text color to purple */
-  font-size: 16px;
-  margin-left: 5px; /* Add spacing between icon and text */
-}
-
-.apps {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  text-align: end;
-  margin-right: 20px;
-  margin-top: 1.5em;
+// box
+let navigation = document.querySelector('.navigation');
+navigation.onclick = function(){
+    navigation.classList.toggle('active')
 }
 
 
-.navigation {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 5px 20px rgb(224, 134, 224);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.5s;
-  transition-delay:0.8s ;
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
+// 9 dots menu content
 
-.navigation.active {
-  width: 200px;
-  height: 200px;
-  transition-delay:0s ;
-  z-index: 999;
-  position: absolute;
-  top: 50px;
-  right: 30px;
-}
+// reference to the image element
+var image = document.getElementById("jesse-network.com");
 
-.navigation span {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  background-color: black;
-  border-radius: 50%;
-  transition: 0.5s;
-  transform: translate(calc(12px * var(--x)),calc(12px * var(--y)));
-  transition-delay: calc(0.1s);
-  transition: transform 0.5s,width 0.5s,height 0.5s,background 0.5s;
-  transition-delay: calc(0.1s * var(--i));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// onclick listener
+image.addEventListener("click", function() {
+  // after click what happens
+  window.open("https://jesse-network.com", "_blank");
+});
 
-.navigation.active span {
-  width: 50px;
-  height: 50px;
-  background: #b1b4c0;
-  transform: translate(calc(60px * var(--x)),calc(60px * var(--y)));
-}
+var image = document.getElementById("telegram.channel");
+image.addEventListener("click", function() {
+  window.open("https://t.me/+lc4EyWAN4-M4YTlk")
+});
 
-.navigation span .icons {
-  width: 0px;
-  height: 0px;
-  transition: 0.5s;
-  font-size: 0em;
-}
+const inputText = document.getElementById("qr-code-text");
 
-.navigation.active span .icons {
-  width: 50px;
-  height: 50px;
-}
+// Add event listener for Enter key press on the input field
+inputText.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    generateQRCode();
+  }
+});
 
-.navigation.active span:hover ion-icon {
-  color: #b238d0;
-  filter: drop-shadow(0 0 2px rgb(183, 34, 252));
-}
-
- 
+// Rest of your code remains the same
+// ...
