@@ -59,6 +59,11 @@ image.addEventListener("click", function() {
 
 const inputText = document.getElementById("qr-code-text");
 
+var image = document.getElementById("calculator");
+image.addEventListener("click", function() {
+  window.open("https://calculator.jesse-network.com")
+});
+
 // Add event listener for Enter key press on the input field
 inputText.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
