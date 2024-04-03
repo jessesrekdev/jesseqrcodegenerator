@@ -43,6 +43,8 @@ document.getElementById("qrg").addEventListener("click", generateQRCode);
 
 // 9 dots menu content
 
+// IMAGE FUNCTIONS WHEN CLICKED
+
 // reference to the image element
 var image = document.getElementById("jesse-network.com");
 
@@ -57,12 +59,12 @@ image.addEventListener("click", function() {
   window.open("https://t.me/+lc4EyWAN4-M4YTlk")
 });
 
-const inputText = document.getElementById("qr-code-text");
-
 var image = document.getElementById("calculator");
 image.addEventListener("click", function() {
   window.open("https://calculator.jesse-network.com")
 });
+
+const inputText = document.getElementById("qr-code-text");
 
 // Add event listener for Enter key press on the input field
 inputText.addEventListener("keydown", (event) => {
