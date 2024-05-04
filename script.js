@@ -92,3 +92,8 @@ var image3 = document.getElementById("calculator");
 image3.addEventListener("click", function() {
   window.open("https://calculator.jesse-network.com")
 });
+
+var image4 = document.getElementById("youtube");
+image4.addEventListener("click", function() {
+  window.open("https://youtube.jesse-network.com")
+});
